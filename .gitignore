@@ -1,0 +1,17 @@
+# Compiled Object files
+*.o
+
+# Executables
+pass1
+pass2
+
+# Intermediate/output files
+*.int
+*.obj
+*.sym
+*.lit
+
+# Editor/IDE
+.vscode/
+*~
+*.swp
