@@ -6,11 +6,15 @@
 - Johnson
 
 ## Build Instructions
-make -f MakeFile clean
-make -f MakeFile
+```bash
+make clean
+make
+```
 
 ## Run Instructions
+```bash
 ./pass1 test.asm
+```
 
 ## Output
 - Intermediate file (.int)
