@@ -370,6 +370,28 @@ void writeIntermediateHeader(std::ofstream& outFile) {
 #endif
 
 /********************************************************************
+*** FUNCTION displayIntermediateFile                               ***
+*********************************************************************
+*** DESCRIPTION : Reads and prints the intermediate file to screen ***
+*** INPUT ARGS  : filename - path to .int file                     ***
+*** RETURN      : void                                             ***
+********************************************************************/
+static void displayIntermediateFile(const std::string &filename) {
+    std::ifstream inFile(filename);
+    if (!inFile.is_open()) {
+        std::cerr << "Error: could not open intermediate file for display: " << filename << "\n";
+        return;
+    }
+    std::cout << "\n========== INTERMEDIATE FILE ==========\n";
+    std::string line;
+    while (std::getline(inFile, line)) {
+        std::cout << line << "\n";
+    }
+    std::cout << "========================================\n";
+    inFile.close();
+}
+
+/********************************************************************
 *** FUNCTION main                                                 ***
 *********************************************************************
 *** DESCRIPTION : Entry point for SIC/XE Pass 1. Reads source     ***
@@ -665,6 +687,9 @@ int main(int argc, char* argv[]) {
      }
 
     cout << "\nIntermediate file written to: " << intFilename << endl;
+
+    // Display intermediate file on screen
+    displayIntermediateFile(intFilename);
 
     cout << "\nProgram Name: " << programName << endl;
     cout << "Start Address: " << hex << uppercase << startAddress << endl;
