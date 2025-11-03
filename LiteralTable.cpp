@@ -147,13 +147,21 @@ int LiteralTable::assignAddresses(int startAddress) {
 *** RETURN      : void                                            ***
 ********************************************************************/
 void LiteralTable::display() const {
-    std::cout << "\nLiteral Table\n";
-    std::cout << "-----------------------------------------\n";
-    std::cout << std::left << std::setw(16) << "LITERAL"
-              << std::setw(16) << "VALUE"
-              << std::setw(8)  << "LENGTH"
-              << std::setw(8)  << "ADDRESS" << std::endl;
-    std::cout << "-----------------------------------------\n";
+    using std::cout; using std::left; using std::right; using std::setw;
+
+    // Use the same widths for header and rows
+    const int W_LIT  = 16;
+    const int W_VAL  = 16;
+    const int W_LEN  = 8;
+    const int W_ADDR = 10;
+
+    cout << "\nLiteral Table\n";
+    cout << "-----------------------------------------\n";
+    cout << left  << setw(W_LIT)  << "LITERAL"
+         << left << setw(W_VAL)  << "VALUE"
+         << left << setw(W_LEN)  << "LENGTH"
+         << right << setw(W_ADDR) << "ADDRESS" << "\n";
+    cout << "-----------------------------------------\n";
 
     // sort keys for stable output
     std::vector<std::string> keys;
@@ -162,13 +170,22 @@ void LiteralTable::display() const {
 
     for (const auto &k : keys) {
         const auto &lit = pimpl->literals.at(k);
-        std::cout << std::left << std::setw(16) << k
-                  << std::setw(16) << (lit.hexValue.empty() ? lit.raw : lit.hexValue)
-                  << std::setw(8)  << lit.length
-                  << std::setw(8)  << lit.address
-                  << std::endl;
+        std::cout << std::left << std::setw(W_LIT) << k
+                  << std::setw(W_VAL) << (lit.hexValue.empty() ? lit.raw : lit.hexValue)
+                  << std::setw(W_LEN)  << lit.length;
+
+        // ADDRESS as 5-digit uppercase hex (program-relative)
+        std::ostringstream addrHex;
+        addrHex << std::uppercase << std::hex
+                << std::setw(5) << std::setfill('0')
+                << (lit.address & 0xFFFFF);
+        cout << std::right << std::setw(W_ADDR) << addrHex.str() << "\n";
+
+        // restore defaults if you modify stream state elsewhere
+        cout << std::dec << std::setfill(' ');
     }
-    std::cout << "-----------------------------------------\n";
+
+    cout << "-----------------------------------------\n";
 }
 
 /********************************************************************
