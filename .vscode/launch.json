@@ -1,0 +1,20 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Pass1 (with test.asm)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/pass1",
+            "args": ["test.asm"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "externalConsole": false,
+            "console": "integratedTerminal",
+            "preLaunchTask": "build pass1",
+            "MIMode": "gdb",
+            "miDebuggerPath": "/usr/bin/gdb"
+        }
+    ]
+}
+
