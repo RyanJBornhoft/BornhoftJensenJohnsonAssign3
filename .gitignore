@@ -1,17 +1,6 @@
-# Compiled Object files
+Pass1
+Pass2
 *.o
-
-# Executables
-pass1
-pass2
-
-# Intermediate/output files
-*.int
 *.obj
-*.sym
-*.lit
-
-# Editor/IDE
-.vscode/
-*~
-*.swp
+*.txt
+*.int
