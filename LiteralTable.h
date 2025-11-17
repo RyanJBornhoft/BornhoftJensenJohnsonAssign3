@@ -1,33 +1,23 @@
-#ifndef LITERAL_TABLE_H
-#define LITERAL_TABLE_H
+#pragma once
 
 #include <string>
 #include <vector>
-
-// Forward declaration
-class LiteralTableImpl;
+#include <map>
 
 class LiteralTable {
 public:
-    LiteralTable();
-    ~LiteralTable();
-    
-    // Prevent copying
-    LiteralTable(const LiteralTable&) = delete;
-    LiteralTable& operator=(const LiteralTable&) = delete;
-    
-    int insert(const std::string& literal);
-    int assignAddresses(int startAddress);
+    bool insert(const std::string& literal);
+    int  assignAddresses(int startAddress);
+    std::vector<std::pair<std::string,int>> getAssignedLiterals() const;
     void display() const;
-    
-    /**
-     * @brief Get all literals for listing purposes.
-     * @return Vector of pairs: (literal name, address).
-     */
-    std::vector<std::pair<std::string, int>> getAssignedLiterals() const;
-
+    bool setAddress(const std::string& literal, int addr);
 private:
-    LiteralTableImpl* pimpl;  // PIMPL idiom
+    struct Literal {
+        std::string raw;
+        std::string hexValue;
+        int length = 0;
+        int address = 0;
+        bool assigned = false;
+    };
+    std::map<std::string, Literal> literals;
 };
-
-#endif
